@@ -18,19 +18,19 @@
 
 $fn = 8;
 total_height = 5;
-h = total_height;
-base_diameter = h / 2;
-bd = base_diameter;
-base_radius = bd / 2;
-br = base_radius;
-stem_radius = br / 4;
-sr = stem_radius;
+base_diameter = total_height / 2;
+base_radius = base_diameter / 2;
+base_height = 1;
+stem_radius = base_radius / 4;
+stem_base_radius = base_radius / 2;
 head_radius = 1;
+stem_height = total_height - base_height - head_radius;
 
-cylinder(1/2, br, br);
-translate([0, 0, 1/2]) 
-	cylinder(1/2, br, br / 2);
-cylinder(4, sr, sr);
+cylinder(base_height/2, base_radius, base_radius);
+translate([0, 0, base_height/2]) 
+	cylinder(base_height, base_radius, 0);
+translate([0, 0, base_height])
+	cylinder(stem_height, stem_base_radius, stem_radius);
 translate([0, 0, 4])
 	sphere(head_radius);
 
