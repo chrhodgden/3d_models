@@ -53,9 +53,15 @@ head_radius = 1;
 head_height = 1;
 stem_height = total_height - base_height - (head_height / 2);
 
+// Can set ridge_count to a coefficient or ratio of $fn or a static number
+ridge_count = $fn;
+ridge_angle_1 = 360 / ridge_count;
+ridge_angle_2 = (360 / ridge_count) / 2;
+ridge_width = (head_radius/ridge_count)*2;
+
 // ridge_offset will set the ridges to go over the corners
 ridge_offset_check = 1;
-ridge_offset = ridge_offset_check * ((360/$fn)/2);
+ridge_offset = ridge_offset_check * ridge_angle_2;
 
 cylinder(base_height/2, r = base_radius);
 translate([0, 0, base_height/2]) 
@@ -67,11 +73,10 @@ difference() {
 		cylinder(head_height, r = head_radius);
 	translate([0, 0, total_height - (head_height/4)]) {
 		cylinder(head_height, r = head_radius * 0.75);
-		// this rotation will work for $fn = 8 or 6
-		for (i = [0:$fn]) {
-			rotate([0, 0, (i * (360/($fn))) - ridge_offset])
-				rotate_extrude(angle = 360/$fn)
-					square([head_radius, head_height]);
+		for (i = [1:ridge_count]) {
+			rotate([0, 0, (i * ridge_angle_1) - ridge_offset])
+				translate([0, -(ridge_width / 2), 0])
+					cube([head_radius, ridge_width, head_height], false);
 		}		
 	}
 }
