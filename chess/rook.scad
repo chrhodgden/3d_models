@@ -35,15 +35,25 @@ head_radius = 1;
 head_height = 1;
 stem_height = total_height - base_height - (head_height / 2);
 
+// ridge_offset will set the ridges to go over the corners
+ridge_offset_check = 0;
+ridge_offset = ridge_offset_check * ((360/$fn)/2);
+
 cylinder(base_height/2, r = base_radius);
 translate([0, 0, base_height/2]) 
 	cylinder(base_height/2, base_radius, stem_base_radius);
 translate([0, 0, base_height])
 	cylinder(stem_height, stem_base_radius, stem_radius);
-translate([0, 0, total_height - head_height])
-	cylinder(head_height/2, r = head_radius);
-translate([0, 0, total_height - (head_height/2)])
-	// I think I might try rotate_extrude
-	// take a differemce with an internal cylinder as well
-	%cylinder(head_height/2, r = head_radius);
-
+difference() {
+	translate([0, 0, total_height - head_height])
+		cylinder(head_height, r = head_radius);
+	translate([0, 0, total_height - (head_height/4)]) {
+		cylinder(head_height, r = head_radius * 0.75);
+		// this rotation will work for $fn = 8 or 6
+		for (i = [0:(($fn/2)-1)]) {
+			rotate([0, 0, (i * (360/($fn/2))) - ridge_offset])
+				rotate_extrude(angle = 360/$fn)
+					square([head_radius + 0.25, head_height]);
+		}		
+	}
+}
