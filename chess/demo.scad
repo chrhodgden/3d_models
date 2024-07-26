@@ -1,14 +1,23 @@
-function bezier(points, t) = 
-    len(points) == 1 ? points[0] : 
-    bezier([for (i = [0:len(points)-2]) 
-        (1 - t) * points[i] + t * points[i + 1]], t);
 
-function bezier_curve(points, $fn=$fn) = 
-    [for (i = [0:$fn]) bezier(points, i / $fn)];
+use <bezier.scad>;
 
-points = [[0, 0], [10, 0], [1, 5], [20, 1], [0, 10]];
-$fn = 100;
-	
-curve = bezier_curve(points);
+$fn = 8;
 
-polygon(curve);
+p0 = [0, 0];
+p1 = [10, 0];
+pb = [1, 5];
+pn = [0, 10];
+
+p_set_1 = [p0, p1, pn];
+p_set_2 = [p0, p1, pb, pn];
+
+points_list_p1 = bezier_curve(p_set_1);
+points_list_p2 = bezier_curve(p_set_2);
+
+translate([0, 0, 0])
+	rotate_extrude(angle = 360)
+		polygon(points_list_p1);
+
+translate([20, 0, 0])
+	rotate_extrude(angle = 360)
+		polygon(points_list_p2);
