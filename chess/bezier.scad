@@ -30,16 +30,26 @@ function bezier_p0(point, degree, index, t) =
 	binomial_coefficient(degree, index) * ((1 - t) ^ (degree - index)) * (t ^ index) * point;
 
 function bezier_p(points, t) =
-	[for (i=[1:len(points[0])]) sum(bezier_p0(points[i], len(points) - 1, i, t))];
+	[for (i=[1:len(points)-1]) sum(bezier_p0(points[i], len(points)-1, i, t))];
 		
 function bezier_p_debug(points, t) =
-	[for (i=[1:len(points[0])]) sum(bezier_p0(points[i], len(points) - 1, i, t))];
+	[for (i=[1:len(points)-2]) sum(bezier_p0(points[i], len(points)+1, i, t))];
 		
+function de_casteljau(points, t) = 
+    len(points) == 1 ?
+	points[0] : 
+    de_casteljau(
+		[for (i = [0:len(points)-2]) (1 - t) * points[i] + t * points[i + 1]], 
+		t
+	) ;
+
+function bezier_curve(points, $fn=$fn) = 
+    [for (i = [0:$fn]) de_casteljau(points, i / $fn)] ;
+
 p0 = [0, 0];
 p1 = [10, 0];
 pb = [1, 5];
 pn = [0, 10];
-
 
 points = $fn;
 
@@ -57,9 +67,9 @@ translate([20, 0, 0])
 p_set_1 = [p0, p1, pn];
 p_set_2 = [p0, p1, pb, pn];
 
-points_list_p1 = [for (i=[0:$fn]) bezier_p(p_set_1, i/$fn)];
+points_list_p1 = bezier_curve(p_set_1);
 points_list_p2 = [for (i=[0:$fn]) bezier_p(p_set_2, i/$fn)];
-points_list_p2d = [for (i=[0:$fn]) bezier_p_debug(p_set_2, i/$fn)];
+points_list_p2d = bezier_curve(p_set_2);
 
 for (i=[0:$fn]) {
 	echo("i", i, bezier_p(p_set_2, i/$fn));

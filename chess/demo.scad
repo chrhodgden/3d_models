@@ -3,19 +3,12 @@ function bezier(points, t) =
     bezier([for (i = [0:len(points)-2]) 
         (1 - t) * points[i] + t * points[i + 1]], t);
 
-function bezier_curve(points, steps) = 
-    [for (i = [0:steps]) bezier(points, i / steps)];
+function bezier_curve(points, $fn=$fn) = 
+    [for (i = [0:$fn]) bezier(points, i / $fn)];
 
-points = [[0, 0], [10, 0], [1, 5], [0, 10]];
-steps = 100;
-curve = bezier_curve(points, steps);
+points = [[0, 0], [10, 0], [1, 5], [20, 1], [0, 10]];
+$fn = 100;
+	
+curve = bezier_curve(points);
 
 polygon(curve);
-
-// alt
-
-points2 = [[0, 0, 0], [10, 0, 5], [1, 5, 10], [0, 10, 15]];
-// steps = 100;
-curve2 = bezier_curve(points2, steps);
-
-polyhedron(points=curve2, faces=[[for (i=[0:len(curve2)-2]) [i, i+1]]]);
