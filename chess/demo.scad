@@ -1,5 +1,5 @@
 
-use <bezier.scad>;
+use <../lib/bezier.scad>;
 
 $fn = 8;
 
