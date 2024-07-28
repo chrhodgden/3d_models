@@ -8,7 +8,8 @@
 
 from stl import mesh
 
-file_path = './dummy13/src/frame-hips-v3.stl'
+file_path = './dummy13/src/frame-waist-v6.stl'
+#file_path = './dummy13/src/frame-hips-v3.stl'
 mesh = mesh.Mesh.from_file(file_path)
 
 x_min = mesh.x.min()
