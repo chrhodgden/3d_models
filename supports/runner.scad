@@ -10,6 +10,21 @@ This program is distributed in the hope that it will be useful, but WITHOUT ANY 
 You should have received a copy of the GNU Lesser General Public License along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
+/*
+This file can be used in an openscad file with `use`.
+```OpenSCAD
+	use <runner.scad>;
+	runner(200, 300);
+```
+
+This file can be called directly on the command line passing specified arguments.
+```shell
+openscad runner.scad -D 'length=200' -D 'width=300' -o runner.stl
+```
+
+This file can also be copied, edited, and compiled with the desired arguments.
+*/
+
 // OpenSCAD's default unit is millimeter
 module runner (length, width, frequency=10, thickness=1, height=0.1) {
 	for (i = [0:frequency:width]) {
@@ -25,3 +40,17 @@ module runner (length, width, frequency=10, thickness=1, height=0.1) {
 	translate([length, 0, 0])
 		cube([thickness, width+thickness, height]);
 }
+
+length = 150;
+width = 100;
+frequency = 10;
+thickness = 1;
+height = 0.1;
+
+runner(
+	length = length,
+	width = width,
+	frequency = frequency,
+	thickness = thickness,
+	height = height
+);
