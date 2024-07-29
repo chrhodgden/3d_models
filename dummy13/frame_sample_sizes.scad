@@ -2,14 +2,18 @@
 use <../supports/runner.scad>;
 
 module frame_parts (size=1.0) {
+	size_deflate = size * 0.5;
+	size_inflate = 2;
 	translate([15.5, 7.7, 0])
-		scale(size) 
-			translate([0, 0, 2.5])
-				import("src/frame-hips-v3.stl");
+		scale(size_inflate)
+			scale(size_deflate) 
+				translate([0, 0, 2.5])
+					import("src/frame-hips-v3.stl");
 	translate([12, 20, 0])
-		scale(size)
-			translate([0, 0, 2.5])
-				import ("src/frame-waist-v6.stl");
+		scale(size_inflate)
+			scale(size_deflate) 
+				translate([0, 0, 2.5])
+					import ("src/frame-waist-v6.stl");
 	*translate([18, 28, 0]) {
 		difference() {
 			cube([10, 5, 0.5]);
