@@ -16,7 +16,9 @@
 // 	- The side of the square should measure 5 to 6 cm. 
 // 	- Referring to 2.2 the side of a square should be at least twice the diameter of a pawn’s base (it means four paws on one square).
 
-$fn = 100;
+use <../lib/bezier.scad>;
+
+$fn = 8;
 total_height = 7;
 base_diameter = total_height / 2;
 base_radius = base_diameter / 2;
@@ -24,7 +26,7 @@ base_height = 1;
 stem_radius = base_radius / 4;
 stem_base_radius = base_radius / 2;
 head_radius = 1;
-stem_height = total_height - base_height - head_radius;
+stem_height = total_height - base_height - head_radius - 1;
 
 // collar_check enables collar
 collar_check = 1;
@@ -40,15 +42,32 @@ translate([0, 0, base_height])
 	cylinder(stem_height, stem_base_radius, stem_radius);
 
 // Collar
-translate([0, 0, total_height - (2 * head_radius)])
+translate([0, 0, total_height - (2.5 * head_radius)])
 	cylinder(0.5, collar_radius, 0);
 
 // Head
+ctrl_points = [
+	[0, 0],
+	[0.75, 0],
+	[0, 1]
+];
+head_curve = bezier_curve(ctrl_points);
 
-%translate([0, 0, total_height - head_radius])
-	sphere(head_radius);
+difference() {
+	translate([0, 0, total_height - 2.5 * head_radius])
+		scale(2.25)
+			// trying to fix odd-poly skewing
+			// rotate([0, 0, 60])
+				rotate_extrude(angle = 360)
+					polygon(head_curve);
 
-translate([0, 0, total_height - head_radius])
-	cylinder(head_radius, head_radius, 0);
+	// Notch
+	translate([-2.5, 0, 5.5])
+		rotate([45, 0, 0])
+			cube([5, 5, 0.1]);
+}
 
+// Point
+translate([0, 0, 6.75])
+	sphere(0.25);
 
