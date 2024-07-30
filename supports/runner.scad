@@ -26,7 +26,7 @@ This file can also be copied, edited, and compiled with the desired arguments.
 */
 
 // OpenSCAD's default unit is millimeter
-module runner (length, width, spacing=10, thickness=1, height=0.1) {
+module runner (length, width, spacing=10, thickness=1, height=0.2) {
 	for (i = [0:spacing:width]) {
 		translate([0, i, 0])
 			cube([length+thickness, thickness, height]);
