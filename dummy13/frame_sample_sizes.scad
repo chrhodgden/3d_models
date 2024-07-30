@@ -20,7 +20,7 @@ module frame_parts (size=1.0) {
 	}
 }
 
-starring_size = 1.00;
+starting_size = 1.00;
 spacing_x = 30;
 spacing_y = 37.5;
 iterations_x = 5;
@@ -35,5 +35,5 @@ translate([-15.5, 0, 0])
 
 for (i = [0:iterations_x-1]) {
 	translate([i*spacing_x, 0, 0]) 
-		frame_parts(starring_size-(i*0.01));
+		frame_parts(starting_size-(i*0.01));
 }
