@@ -23,7 +23,7 @@ module frame_parts (size=1.0) {
 starting_size = 1.00;
 spacing_x = 37.5;
 spacing_y = 37.5;
-iterations_x = 6;
+iterations_x = 5;
 iterations_y = 1;
 
 translate([-15.5, 0, 0])
