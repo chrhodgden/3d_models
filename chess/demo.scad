@@ -1,16 +1,33 @@
 
-use <../lib/bezier.scad>;
+$fn = 8;
 
-$fn = 100;
+difference () {
+	cylinder(1.4, r=1.7);
 
-p0 = [0, 0];
-p1 = [0.5, 0.5];
-pn = [1, 0];
+	translate([0, 0, 0.5])
+		rotate_extrude(angle = 360)
+			translate([1.6, 0, 0])
+				circle(r=1);
 
-p_set_1 = [p0, p1, pn];
+	rotate_extrude(angle = 360)
+		translate([1.5, 0, 0]) 
+			rotate([0, 0, 90])
+				difference() {
+					square(1.5);
+					circle(r=1.5);
+				}
 
-points_list_p1 = bezier_curve(p_set_1, $fn=$fn);
+	for (i = [1:8]) {
+		rotate([0, 0, 45*i])
+			translate([0.75, 0.75, 1.65])
+				rotate([0, -75, 45])
+					sphere(0.75, $fn=4);
+	}		
+}
 
-translate([0, 0, 0])
-	//rotate_extrude(angle = 360)
-		polygon(points_list_p1);
+
+translate([0, 0, 1.25])
+	sphere(r=0.5);
+
+translate([0, 0, 1.85])
+	sphere(r=0.15);
