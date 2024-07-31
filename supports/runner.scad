@@ -45,7 +45,7 @@ length = 150;
 width = 100;
 spacing = 10;
 thickness = 1;
-height = 0.1;
+height = 0.2;
 
 runner(
 	length = length,
