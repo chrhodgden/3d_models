@@ -1,0 +1,39 @@
+
+use <../supports/runner.scad>;
+
+module frame_parts (size=1.0) {
+	translate([0, 10, 0])
+		scale(size)
+			translate([0, 0, 2.5])
+				import("src/armor-crotch-v12.stl");
+	translate([0, 20, 0])
+		scale(size)
+			//translate([0, 0, 2.5])
+				import ("src/armor-waist-v30.stl");
+	translate([-12, 20, 0]) {
+		difference() {
+			cube([10, 5, 0.5]);
+			translate([10 / 2, 5 / 2 , 0.25])
+				linear_extrude(height = 1)
+					text(str(size), size = 2, halign = "center", valign = "center");
+		}
+	}
+}
+
+starting_size = 1.00;
+spacing_x = 37.5;
+spacing_y = 37.5;
+iterations_x = 6;
+iterations_y = 1;
+
+translate([-15.5, 0, 0])
+	runner(
+		(spacing_x * iterations_x) + 7, 
+		spacing_y * iterations_y, 
+		spacing=7.5
+	);
+
+for (i = [0:iterations_x-1]) {
+	translate([i*spacing_x, 0, 0]) 
+		frame_parts(starting_size+(i*0.02));
+}
