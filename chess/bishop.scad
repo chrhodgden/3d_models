@@ -46,25 +46,26 @@ translate([0, 0, total_height - (2.5 * head_radius)])
 	cylinder(0.5, collar_radius, 0);
 
 // Head
-ctrl_points = [
+control_points = [
 	[0, 0],
 	[0.75, 0],
 	[0, 1]
 ];
-head_curve = bezier_curve(ctrl_points);
+// adjust curve_facets for low & odd $fn values
+curve_facets = $fn/2;
+head_curve = bezier_curve(control_points, $fn=curve_facets);
 
 difference() {
 	translate([0, 0, total_height - 2.5 * head_radius])
 		scale(2.25)
-			// trying to fix odd-poly skewing
-			// rotate([0, 0, 60])
-				rotate_extrude(angle = 360)
+			rotate([0, 0, 180])
+				rotate_extrude()
 					polygon(head_curve);
 
 	// Notch
-	translate([-2.5, 0, 5.5])
-		rotate([45, 0, 0])
-			cube([5, 5, 0.1]);
+	translate([0, base_radius, 5.5])
+		rotate([45, 0, -90])
+			cube([base_diameter, base_diameter, 0.1]);
 }
 
 // Point
