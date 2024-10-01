@@ -25,15 +25,31 @@ module stick() {
 	translate([0, 0, stem_height])
 		rotate_extrude()
 			polygon(top_curve);
+
+	translate([0, 0, total_height-0.01])
+		cylinder(2, 0.05);
 };
 
 difference() {
-	translate([-1.5, -1.5, 0.01])
-    	cube([6, 6, total_height]);
-
-	translate([0, 0, 0]) stick();
-	translate([3, 0, 0]) stick();
-	translate([0, 3, 0]) stick();
-	translate([3, 3, 0]) stick();
+	difference() {
+		// Base Mold Block
+		translate([-1.5, -1.5, 0.01])
+			cube([6, 6, total_height]);
+		
+		// Mold of each stick
+		translate([0, 0, 0]) stick();
+		translate([3, 0, 0]) stick();
+		translate([0, 3, 0]) stick();
+		translate([3, 3, 0]) stick();
+	};
+	
+	// Cut Molds in half
+	// Print 2 of these to form full mold
+	translate([-1.51, -1.51, 0])
+		cube([6.02, 1.51, total_height + 0.02]);
+	translate([-1.51, 3, 0])
+		cube([6.02, 1.51, total_height + 0.02]);
+	
+	
 };
 
