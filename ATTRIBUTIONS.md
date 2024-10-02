@@ -14,6 +14,8 @@
 
 [Runner](./supports/runner.stl) - Created by [Christian Hodgden](https://chrhodgden.github.io) [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
 
+[Taper Candlestick Mold](./candlestick_molds/taper_block.stl) - Created by [Christian Hodgden](https://chrhodgden.github.io) [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
+
 
 ## Some of these projects are using components from following sources:
 
