@@ -1,2 +1,2 @@
 
-import ("../candlestick_molds/diamond.stl");
+import ("../candles/diamond.stl");

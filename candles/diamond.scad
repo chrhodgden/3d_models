@@ -25,4 +25,5 @@ diamond(3);
 diamond(4);
 diamond(5);
 diamond(6);
+diamond(7);
 
