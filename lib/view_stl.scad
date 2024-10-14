@@ -1,2 +1,2 @@
 
-import ("../candlestick_molds/taper_block.stl");
+import ("../candlestick_molds/diamond.stl");
