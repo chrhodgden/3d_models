@@ -18,6 +18,8 @@
 
 [Diamond Candlestick](./candles/diamond.stl) - Created by [Christian Hodgden](https://chrhodgden.github.io) [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
 
+[Peg](./triangle_pegs/peg.stl) - Created by [Christian Hodgden](https://chrhodgden.github.io) [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
+
 ## Some of these projects are using components from following sources:
 
 [DUMMY 13 Printable Jointed Figure](https://www.printables.com/model/593185-dummy-13-printable-jointed-figure-beta-files) (©) 2023 by [Lucky 13 Toys](https://www.lucky13toys.com) is licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)
