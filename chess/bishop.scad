@@ -26,11 +26,13 @@ base_height = 1;
 stem_radius = base_radius / 4;
 stem_base_radius = base_radius / 2;
 head_radius = 1;
-stem_height = total_height - base_height - head_radius - 1;
+head_height = 1;
+stem_height = total_height - base_height - head_height - 1.2;
 
 // collar_check enables collar
 collar_check = 1;
-collar_radius = head_radius * collar_check;
+collar_radius = 1 * collar_check;
+collar_height = 0.5 * collar_check;
 
 // Base
 cylinder(base_height/2, base_radius, base_radius);
@@ -42,14 +44,16 @@ translate([0, 0, base_height])
 	cylinder(stem_height, stem_base_radius, stem_radius);
 
 // Collar
-translate([0, 0, total_height - (2.5 * head_radius)])
-	cylinder(0.5, collar_radius, 0);
+translate([0, 0, total_height - (head_height*2.25) - (collar_height*0.75)])
+	cylinder(collar_height/2, 0, collar_radius);
+translate([0, 0, total_height - (head_height*2.25) - (collar_height*0.25)])
+	cylinder(collar_height/2, collar_radius, 0);
 
 // Head
 control_points = [
 	[0, 0],
 	[0.75, 0],
-	[0, 1]
+	[0, head_height]
 ];
 // adjust curve_facets for low & odd $fn values
 curve_facets = $fn/2;
